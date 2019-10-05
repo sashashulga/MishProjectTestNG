@@ -9,11 +9,11 @@ import org.testng.annotations.Test;
 public class ProfilePageTests extends tests.TestBase {
 
     @BeforeMethod
-    public void initTests() throws InterruptedException {
+    public void initTests(){
         //--- Login to the system ---
         WebElement loginIcon = driver.findElement(By.id("idsignin"));
         loginIcon.click();
-        Thread.sleep(3000);
+        waitUntilElementIsClickable(By.xpath("//div[@id='signinrequest']"),20);
 
         WebElement loginField = driver.findElement(By.id("logininput"));
         WebElement passwordField = driver.findElement(By.id("passwordinput"));
@@ -23,12 +23,12 @@ public class ProfilePageTests extends tests.TestBase {
         passwordField.sendKeys("Sasha111");
 
         driver.findElement(By.id("signinrequest")).click();
-
-        Thread.sleep(5000);
+        waitUntilElementIsClickable(By.xpath("//i[@id='profile']"),20);
+//        Thread.sleep(5000);
 
         //--- Go to the Profile Page
         driver.findElement(By.id("profile")).click();
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
 
     }
 
@@ -38,7 +38,8 @@ public class ProfilePageTests extends tests.TestBase {
         // --- Open in edit mode ----
         driver.manage().window().fullscreen();
         driver.findElement(By.id("idbtneditprofile")).click();
-        Thread.sleep(7000);
+        waitUntilElementIsClickable(By.xpath("//div[@id='idbtnsaveprofile']"),20);
+        //Thread.sleep(7000);
 
         //--- Enter new last name ---
         WebElement lastNameField = driver
@@ -47,24 +48,22 @@ public class ProfilePageTests extends tests.TestBase {
         lastNameField.clear();
         lastNameField.sendKeys("Shulga1");
 
-        Thread.sleep(5000);
-
         //--- Save profile ---
         driver.findElement(By.id("idbtnsaveprofile")).click();
-        Thread.sleep(5000);
+        //Thread.sleep();
+        waitUntilElementIsVisible(By.xpath("//div[@id='fieldobjrateGuest']"),10);
 
         // --- Go to the family page-----
         driver.findElement(By.id("family")).click();
         Thread.sleep(5000);
-
         System.out.println("Last name of the family verification: " + driver
                 .findElement(By.id("titleprofile")).getText().contains("Shulga1"));
 
         // ---- Return to the profile
         driver.findElement(By.id("profile")).click();
-        Thread.sleep(3000);
 
         // --- Open in edit mode ----
+        driver.manage().window().fullscreen();
         driver.findElement(By.id("idbtneditprofile")).click();
         Thread.sleep(7000);
 
@@ -74,8 +73,6 @@ public class ProfilePageTests extends tests.TestBase {
         lastNameField.click();
         lastNameField.clear();
         lastNameField.sendKeys("Shulga");
-
-        Thread.sleep(5000);
 
         //--- Save profile ---
         driver.findElement(By.id("idbtnsaveprofile")).click();
