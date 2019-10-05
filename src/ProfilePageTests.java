@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class ProfilePageTests extends tests.TestBase {
 
     @BeforeMethod
-    public void initTests(){
+    public void initTests() throws InterruptedException {
         //--- Login to the system ---
         WebElement loginIcon = driver.findElement(By.id("idsignin"));
         loginIcon.click();
@@ -28,7 +28,7 @@ public class ProfilePageTests extends tests.TestBase {
 
         //--- Go to the Profile Page
         driver.findElement(By.id("profile")).click();
-        //Thread.sleep(3000);
+        Thread.sleep(3000);
 
     }
 
