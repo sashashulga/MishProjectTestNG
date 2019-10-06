@@ -6,6 +6,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class HomePageTests extends tests.TestBase {
 
     @Test
@@ -22,12 +24,18 @@ public class HomePageTests extends tests.TestBase {
     }
     @Test
     public void singleFilterHolidays() throws InterruptedException {
-        waitUntilElementIsVisible(By.name("selectholidays"),10);
+        waitUntilElementIsVisible(By.name("selectholidays"),30);
+        waitUntilAllElementsVisible(driver
+                .findElements(By.xpath("//select[@name = 'selectholidays']/option")),30);
         WebElement holidaysFilter = driver
                 .findElement(By.name("selectholidays"));
+        System.out.println("is displayed: " + driver.findElement(
+                By.xpath("//div[@id='idbtnclearfilter']")).isDisplayed());
+        System.out.println("is enabled: " + driver.findElement(
+                By.xpath("//div[@id='idbtnclearfilter']")).isEnabled());
         Select selector = new Select(holidaysFilter);
         selector.selectByValue("Shabbat");
-        Thread.sleep(10000);
+        waitUntilElementIsClickable(By.xpath("//div[@id='idbtnclearfilter']"), 20);
 
     }
 
